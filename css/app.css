@@ -2,3 +2,9 @@
     margin-top: 300px;
     text-align: center;
 }
+
+html,body{
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
