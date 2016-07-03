@@ -128,9 +128,9 @@ var BackGround = React.createClass({
         Point.prototype.init = function () {
             this.x = rand(0,canvas.width);
             this.y = rand(0,canvas.height);
-            this.dx = rand(-1.7,1.7);
-            this.dy = rand(-1.7,1.7);
-            this.r = rand(0.8,1.6);
+            this.dx = rand(-1.4,1.4);
+            this.dy = rand(-1.4,1.4);
+            this.r = rand(0.8,2.1);
         };
 
         //线
@@ -212,6 +212,14 @@ var BackGround = React.createClass({
             context.closePath();
             this.loadingLine();
             this.update();
+            /**
+             unction webkitRequestAnimationFrame(callback)
+             {
+                 // stuff...
+                 callback();
+                 // other stuff...
+             }
+             */
             requestAnimationFrame( this.drawPage.bind(this));
         };
 
