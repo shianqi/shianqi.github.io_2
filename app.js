@@ -99,11 +99,12 @@ var BackGround = React.createClass({
             this.y = 0;
             this.dx = 0;
             this.dy = 0;
+            this.r = 0;
             this.init();
         };
 
         Point.prototype.draw = function () {
-            console.log("1");
+            context.beginPath();
             context.fillStyle="#70C1B7";
             if(this.x>canvas.width){
                 this.dx=-1*Math.abs(this.dx);
@@ -119,7 +120,7 @@ var BackGround = React.createClass({
             }
             this.x+=this.dx;
             this.y+=this.dy;
-            context.arc(this.x,this.y,2,0,2*Math.PI,false);
+            context.arc(this.x,this.y,this.r,0,2*Math.PI,false);
             context.fill();
             context.closePath();
         };
@@ -127,8 +128,9 @@ var BackGround = React.createClass({
         Point.prototype.init = function () {
             this.x = rand(0,canvas.width);
             this.y = rand(0,canvas.height);
-            this.dx = rand(1,10);
-            this.dy = rand(1,10);
+            this.dx = rand(-1,1);
+            this.dy = rand(-1,1);
+            this.r = rand(0.8,1.6);
         };
 
         //整体画布
@@ -136,23 +138,27 @@ var BackGround = React.createClass({
             this.points = [];
         };
 
-        Net.prototype.drawPage = function () {
+        Net.prototype.update = function () {
             for(var i=0;i<50;i++){
                 this.points[i].draw();
             }
-            //requestAnimationFrame(this.drawPage);
+        };
+
+        Net.prototype.drawPage = function () {
+            context.beginPath();
+            context.fillStyle="#10181B";
+            context.fillRect(0,0,canvas.width,canvas.height);
+            context.fill();
+            context.closePath();
+            this.update();
+            requestAnimationFrame( this.drawPage.bind(this));
         };
 
         Net.prototype.start = function () {
             for(var i=0;i<50;i++){
-                this.addPoint();
+                this.points.push(new Point());
             }
             this.drawPage();
-        };
-
-        Net.prototype.addPoint = function () {
-            console.log(this.points.length);
-            this.points.push(new Point());
         };
 
         var myNet = new Net();
