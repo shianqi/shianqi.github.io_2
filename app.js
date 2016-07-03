@@ -5,7 +5,7 @@
 var App = React.createClass({
     getInitialState: function () {
         return {
-            loadingState:false
+            loadingState:true
         };
     },
     render: function () {
@@ -99,7 +99,7 @@ var BackGround = React.createClass({
             this.y = 0;
             this.dx = 0;
             this.dy = 0;
-            this.r = 0;
+            this.r = 0;     //点的半径
             this.init();
         };
 
@@ -128,19 +128,79 @@ var BackGround = React.createClass({
         Point.prototype.init = function () {
             this.x = rand(0,canvas.width);
             this.y = rand(0,canvas.height);
-            this.dx = rand(-1,1);
-            this.dy = rand(-1,1);
+            this.dx = rand(-1.7,1.7);
+            this.dy = rand(-1.7,1.7);
             this.r = rand(0.8,1.6);
+        };
+
+        //线
+        var Line = function(point1,point2,dist2,minDist){
+            this.x1 = point1.x;
+            this.y1 = point1.y;
+            this.x2 = point2.x;
+            this.y2 = point2.y;
+            this.alphe = 0;
+            this.lineWidth = 0;
+            this.dist = Math.sqrt(dist2);
+            this.minDist = minDist;
+            this.init();
+        };
+
+        Line.prototype.init = function () {
+            this.getAlphe();
+            this.getLineWeight();
+        };
+
+        Line.prototype.draw = function () {
+            context.beginPath();
+            context.lineWidth = this.lineWidth;
+            context.strokeStyle='rgba(112,194,184,'+this.alphe+')';
+            context.moveTo(this.x1,this.y1);
+            context.lineTo(this.x2,this.y2);
+            context.stroke();
+            context.closePath();
+        };
+
+        Line.prototype.getLineWeight = function () {
+            this.lineWidth = 1-this.dist/this.minDist;
+        };
+
+        Line.prototype.getAlphe = function () {
+            this.alphe = 1-this.dist/this.minDist;
         };
 
         //整体画布
         var Net = function () {
             this.points = [];
+            this.lines = [];
+            this.pointSize = 100;
+            this.minDist = 150;
         };
 
         Net.prototype.update = function () {
-            for(var i=0;i<50;i++){
+            for(var i=0;i<this.pointSize;i++){
                 this.points[i].draw();
+            }
+            for(var i=0;i<this.lines.length;i++){
+                this.lines[i].draw();
+            }
+        };
+
+        Net.prototype.getDist = function (point1, point2) {
+            var dx = point1.x - point2.x;
+            var dy = point1.y - point2.y;
+            return dx*dx+dy*dy;
+        };
+
+        Net.prototype.loadingLine = function () {
+            this.lines = [];
+            for(var i=0;i<this.pointSize;i++){
+                for(var j = 0;j<this.pointSize;j++){
+                    var dist2 = this.getDist(this.points[i],this.points[j]);
+                    if(dist2<this.minDist*this.minDist){
+                        this.lines.push(new Line(this.points[i],this.points[j],dist2,this.minDist))
+                    }
+                }
             }
         };
 
@@ -150,12 +210,13 @@ var BackGround = React.createClass({
             context.fillRect(0,0,canvas.width,canvas.height);
             context.fill();
             context.closePath();
+            this.loadingLine();
             this.update();
             requestAnimationFrame( this.drawPage.bind(this));
         };
 
         Net.prototype.start = function () {
-            for(var i=0;i<50;i++){
+            for(var i=0;i<this.pointSize;i++){
                 this.points.push(new Point());
             }
             this.drawPage();
