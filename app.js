@@ -64,7 +64,7 @@ var Main = React.createClass({
         return(
             <div>
                 <BackGround/>
-
+                <Title/>
             </div>
         )
     }
@@ -236,19 +236,56 @@ var BackGround = React.createClass({
 });
 
 var Title = React.createClass({
+    getInitialState: function () {
+        return {
+            tabNumber:1
+        };
+    },
+    aOnclick: function () {
+        this.setState({
+            tabNumber:1
+        });
+    },
+    bOnclick: function () {
+        this.setState({
+            tabNumber:2
+        });
+    },
     render: function () {
         return(
             <div>
-                <ul>
-                    <li>hello</li>
-                    <li>hello</li>
-                </ul>
+                <div id="title">
+                    <ul>
+                        <li><a href="#" onClick={this.aOnclick}><strong>MESSAGE</strong></a></li>
+                        <li><a href="#" onClick={this.bOnclick}><strong>HOME</strong></a></li>
+                    </ul>
+                </div>
+                <Tabs promise={this.state.tabNumber}/>
             </div>
         )
     }
 });
 
+var Tabs = React.createClass({
+    render: function () {
+        if(this.props.promise==1){
+            return(
+                <div className="messageBox">
+                    111111111111
+                </div>
+            )
+        }else if(this.props.promise==2){
+            return(
+                <div className="messageBox">
+                    222222222222
+                </div>
+            )
+        }
+
+    }
+});
+
 ReactDOM.render(
-    <App promise={$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars')}/>,
+    <App promise={$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars22')}/>,
     document.getElementById('app')
 );
