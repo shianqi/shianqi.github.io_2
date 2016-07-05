@@ -62,7 +62,7 @@ var Loading = React.createClass({
 var Main = React.createClass({
     render: function () {
         return(
-            <div>
+            <div className="full">
                 <BackGround/>
                 <Title/>
             </div>
@@ -86,7 +86,7 @@ var BackGround = React.createClass({
             canvas.width = window.innerWidth ;
             canvas.height = window.innerHeight;
         };
-        document.documentElement.style.overflowY = 'hidden';
+        //document.documentElement.style.overflowY = 'hidden';
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         var rand = function( min, max ){
@@ -251,15 +251,20 @@ var Title = React.createClass({
             tabNumber:2
         });
     },
+    cOnclick: function () {
+        this.setState({
+            tabNumber:3
+        });
+    },
     render: function () {
         return(
-            <div>
-                <div id="title">
-                    <ul>
-                        <li><a href="#" onClick={this.aOnclick}><strong>MESSAGE</strong></a></li>
-                        <li><a href="#" onClick={this.bOnclick}><strong>HOME</strong></a></li>
-                    </ul>
-                </div>
+            <div className="full" id="title">
+                <input id="inputAbout" type="radio" name="title" />
+                <label htmlFor="inputAbout" onClick={this.cOnclick}><span>About</span></label>
+                <input id="inputMessage" type="radio" name="title"/>
+                <label htmlFor="inputMessage" onClick={this.aOnclick}><span>MESSAGE</span></label>
+                <input id="inputHome" type="radio" name="title" defaultChecked/>
+                <label htmlFor="inputHome" onClick={this.bOnclick}><span>HOME</span></label>
                 <Tabs promise={this.state.tabNumber}/>
             </div>
         )
@@ -268,20 +273,19 @@ var Title = React.createClass({
 
 var Tabs = React.createClass({
     render: function () {
-        if(this.props.promise==1){
-            return(
-                <div className="messageBox">
-                    111111111111
+        return(
+            <div className="messageBox" id="messageBox">
+                <div className="page">
+                    页面一
                 </div>
-            )
-        }else if(this.props.promise==2){
-            return(
-                <div className="messageBox">
-                    222222222222
+                <div className="page">
+                    页面二
                 </div>
-            )
-        }
-
+                <div className="page">
+                    页面三
+                </div>
+            </div>
+        )
     }
 });
 
