@@ -260,7 +260,7 @@ var Title = React.createClass({
         return(
             <div className="full" id="title">
                 <input id="inputAbout" type="radio" name="title" />
-                <label htmlFor="inputAbout" onClick={this.cOnclick}><span>About</span></label>
+                <label htmlFor="inputAbout" onClick={this.cOnclick}><span>ABOUT</span></label>
                 <input id="inputMessage" type="radio" name="title"/>
                 <label htmlFor="inputMessage" onClick={this.aOnclick}><span>MESSAGE</span></label>
                 <input id="inputHome" type="radio" name="title" defaultChecked/>
@@ -274,15 +274,39 @@ var Title = React.createClass({
 var Tabs = React.createClass({
     render: function () {
         return(
-            <div className="messageBox" id="messageBox">
+            <div className="pageMain" id="pageMain">
                 <div className="page">
                     页面一
+                    <h1>sdfafasdfasdfasdfasdfasdfs</h1>
                 </div>
                 <div className="page">
-                    页面二
+                    <MessageBox/>
                 </div>
                 <div className="page">
-                    页面三
+                    CONTACT ME
+                </div>
+            </div>
+        )
+    }
+});
+
+var MessageBox = React.createClass({
+    render: function(){
+        return (
+            <div className="messageBox">
+                <div className="messageBoxLeft">
+
+                </div>
+                <div className="messageBoxRight">
+                    <div className="messageBoxRightTitle">
+
+                    </div>
+                    <div className="messageBoxRightInput">
+                        <textarea placeholder="In a message here..."/>
+                    </div>
+                    <div className="messageBoxRightSubmit">
+
+                    </div>
                 </div>
             </div>
         )
