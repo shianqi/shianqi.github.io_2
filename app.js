@@ -260,11 +260,11 @@ var Title = React.createClass({
         return(
             <div className="full" id="title">
                 <input id="inputAbout" type="radio" name="title" />
-                <label htmlFor="inputAbout" onClick={this.cOnclick}><span>ABOUT</span></label>
+                <label className="titleLabel" htmlFor="inputAbout" onClick={this.cOnclick}><span>ABOUT</span></label>
                 <input id="inputMessage" type="radio" name="title"/>
-                <label htmlFor="inputMessage" onClick={this.aOnclick}><span>MESSAGE</span></label>
+                <label className="titleLabel" htmlFor="inputMessage" onClick={this.aOnclick}><span>MESSAGE</span></label>
                 <input id="inputHome" type="radio" name="title" defaultChecked/>
-                <label htmlFor="inputHome" onClick={this.bOnclick}><span>HOME</span></label>
+                <label className="titleLabel" htmlFor="inputHome" onClick={this.bOnclick}><span>HOME</span></label>
                 <Tabs promise={this.state.tabNumber}/>
             </div>
         )
@@ -302,10 +302,35 @@ var MessageBox = React.createClass({
 
                     </div>
                     <div className="messageBoxRightInput">
-                        <textarea placeholder="In a message here..."/>
+                        <div className="messageBoxRightInputInput">
+                            <input type="text" placeholder="Your Nickname"/>
+                        </div>
+                        <div className="messageBoxRightInputTextarea">
+                            <textarea placeholder="In a message here..."/>
+                        </div>
                     </div>
                     <div className="messageBoxRightSubmit">
+                        <div className="messageBoxRightColorPicker">
+                            <input type="radio" id="check-black" className="black" data-set="radio-color-set" name="colorPicker" defaultChecked/>
+                            <label id="label1" className="messageBoxRightColorPickerLabel" htmlFor="check-black"><span></span></label>
 
+                            <input type="radio" id="check-blue" className="blue" data-set="radio-color-set" name="colorPicker"/>
+                            <label id="label2" className="messageBoxRightColorPickerLabel" htmlFor="check-blue" ><span></span></label>
+
+                            <input type="radio" id="check-orange" className="orange" data-set="radio-color-set" name="colorPicker"/>
+                            <label id="label3" className="messageBoxRightColorPickerLabel" htmlFor="check-orange"><span></span></label>
+
+                            <input type="radio" id="check-pink" className="pink" data-set="radio-color-set" name="colorPicker"/>
+                            <label id="label4" className="messageBoxRightColorPickerLabel" htmlFor="check-pink"><span></span></label>
+
+                            <input type="radio" id="check-red" className="red" data-set="radio-color-set" name="colorPicker"/>
+                            <label id="label5" className="messageBoxRightColorPickerLabel" htmlFor="check-red"><span></span></label>
+
+                            <input type="radio" id="check-yellow" className="yellow" data-set="radio-color-set" name="colorPicker"/>
+                            <label id="label6" className="messageBoxRightColorPickerLabel" htmlFor="check-yellow"><span></span></label>
+
+                            <button className="messageBoxRightSubmitButton">SUBMIT</button>
+                        </div>
                     </div>
                 </div>
             </div>
