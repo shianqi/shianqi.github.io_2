@@ -72,9 +72,9 @@ var Main = React.createClass({
     }
 });
 
+//响应鼠标滚轮事件
 var MouseScroll = React.createClass({
     componentDidMount: function () {
-
         var body;
         if(navigator.userAgent.indexOf("Firefox")>0 || navigator.userAgent.indexOf("MSIE")>0){
             body = document.documentElement;
@@ -93,8 +93,7 @@ var MouseScroll = React.createClass({
                         clearTimeout(timeoutId);
                     }
                     $this.data('timeoutId', setTimeout(function() {
-                        console.log("1");
-                        //do something
+                        rscrollDownOrUp(1);
                         $this.removeData('timeoutId');
                         $this = null
                     }, 100));
@@ -106,16 +105,35 @@ var MouseScroll = React.createClass({
                         clearTimeout(timeoutId);
                     }
                     $this.data('timeoutId', setTimeout(function() {
-                        console.log("1");
-                        //do something
+                        rscrollDownOrUp(-1);
                         $this.removeData('timeoutId');
                         $this = null
                     }, 100));
                     return false;
                 }
             }
-
         };
+
+        var rscrollDownOrUp = function (flag) {
+            var maxNumber = $("#title").find('input[name="title"]').length;
+            var nowNumber = $("#title").find('input[checked][name="title"]').attr("data-number");
+            if(flag==1){
+                if(nowNumber<maxNumber){
+                    nowNumber++;
+                    console.log(1);
+                    $("#title").find('input[checked][name="title"]').removeAttr("checked");
+                    $("#title").find('input[data-number='+nowNumber+']').attr("checked","checked");
+                }
+            }else{
+                if(nowNumber>1){
+                    nowNumber--;
+                    console.log(-1);
+                    $("#title").find('input[checked][name="title"]').removeAttr("checked");
+                    $("#title").find('input[data-number='+nowNumber+']').prop("checked","checked");
+                }
+            }
+        };
+
         if(navigator.userAgent.indexOf("Firefox")>0){
             if(document.addEventListener){
                 document.addEventListener('DOMMouseScroll',scrollFunc,false);
@@ -132,6 +150,7 @@ var MouseScroll = React.createClass({
         )
     }
 });
+
 
 //背景
 var BackGround = React.createClass({
@@ -298,37 +317,33 @@ var BackGround = React.createClass({
     }
 });
 
+
 var Title = React.createClass({
-    getInitialState: function () {
-        return {
-            tabNumber:1
-        };
+    componentDidMount: function () {
+        $("#inputHome").attr("checked","checked");
     },
-    aOnclick: function () {
-        this.setState({
-            tabNumber:1
-        });
+    onclick1: function () {
+        $("#title").find('input[checked][name="title"]').removeAttr("checked");
+        $("#title").find('input[data-number="1"]').prop("checked","checked");
     },
-    bOnclick: function () {
-        this.setState({
-            tabNumber:2
-        });
+    onclick2: function () {
+        $("#title").find('input[checked][name="title"]').removeAttr("checked");
+        $("#title").find('input[data-number="2"]').prop("checked","checked");
     },
-    cOnclick: function () {
-        this.setState({
-            tabNumber:3
-        });
+    onclick3: function () {
+        $("#title").find('input[checked][name="title"]').removeAttr("checked");
+        $("#title").find('input[data-number="3"]').prop("checked","checked");
     },
     render: function () {
         return(
             <div className="full" id="title">
-                <input id="inputAbout" type="radio" name="title" />
-                <label className="titleLabel" htmlFor="inputAbout" onClick={this.cOnclick}><span>ABOUT</span></label>
-                <input id="inputMessage" type="radio" name="title"/>
-                <label className="titleLabel" htmlFor="inputMessage" onClick={this.aOnclick}><span>MESSAGE</span></label>
-                <input id="inputHome" type="radio" name="title" defaultChecked/>
-                <label className="titleLabel" htmlFor="inputHome" onClick={this.bOnclick}><span>HOME</span></label>
-                <Tabs promise={this.state.tabNumber}/>
+                <input data-number="3" id="inputAbout" type="radio" name="title" />
+                <label className="titleLabel" onClick={this.onclick3}><span>ABOUT</span></label>
+                <input data-number="2" id="inputMessage" type="radio" name="title"/>
+                <label className="titleLabel" onClick={this.onclick2}><span>MESSAGE</span></label>
+                <input data-number="1" id="inputHome" type="radio" name="title"/>
+                <label className="titleLabel" onClick={this.onclick1}><span>HOME</span></label>
+                <Tabs/>
             </div>
         )
     }
