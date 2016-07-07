@@ -2,6 +2,7 @@
  * Created by killer on 2016/7/3.
  * 程序主入口
  */
+
 var App = React.createClass({
     getInitialState: function () {
         return {
@@ -65,6 +66,68 @@ var Main = React.createClass({
             <div className="full">
                 <BackGround/>
                 <Title/>
+                <MouseScroll/>
+            </div>
+        )
+    }
+});
+
+var MouseScroll = React.createClass({
+    componentDidMount: function () {
+
+        var body;
+        if(navigator.userAgent.indexOf("Firefox")>0 || navigator.userAgent.indexOf("MSIE")>0){
+            body = document.documentElement;
+        }else{
+            body = document.body;
+        }
+        var isFinish = true;
+        var scrollFunc = function(e){
+            if(isFinish){
+                var scrollTop = body.scrollTop;
+                e = e || window.event;
+                if((e.wheelDelta<0|| e.detail>0)){
+                    var $this = $(this),
+                        timeoutId = $this.data('timeoutId');
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                    }
+                    $this.data('timeoutId', setTimeout(function() {
+                        console.log("1");
+                        //do something
+                        $this.removeData('timeoutId');
+                        $this = null
+                    }, 100));
+                    return false;
+                }else if((e.wheelDelta>0 || e.detail<0)){
+                    var $this = $(this),
+                        timeoutId = $this.data('timeoutId');
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                    }
+                    $this.data('timeoutId', setTimeout(function() {
+                        console.log("1");
+                        //do something
+                        $this.removeData('timeoutId');
+                        $this = null
+                    }, 100));
+                    return false;
+                }
+            }
+
+        };
+        if(navigator.userAgent.indexOf("Firefox")>0){
+            if(document.addEventListener){
+                document.addEventListener('DOMMouseScroll',scrollFunc,false);
+            }
+        }else{
+            document.onmousewheel = scrollFunc;
+        }
+    },
+    render: function () {
+        return(
+            <div>
+
             </div>
         )
     }
