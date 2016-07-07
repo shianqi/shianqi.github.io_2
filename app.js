@@ -66,91 +66,10 @@ var Main = React.createClass({
             <div className="full">
                 <BackGround/>
                 <Title/>
-                <MouseScroll/>
             </div>
         )
     }
 });
-
-//响应鼠标滚轮事件
-var MouseScroll = React.createClass({
-    componentDidMount: function () {
-        var body;
-        if(navigator.userAgent.indexOf("Firefox")>0 || navigator.userAgent.indexOf("MSIE")>0){
-            body = document.documentElement;
-        }else{
-            body = document.body;
-        }
-        var isFinish = true;
-        var scrollFunc = function(e){
-            if(isFinish){
-                var scrollTop = body.scrollTop;
-                e = e || window.event;
-                if((e.wheelDelta<0|| e.detail>0)){
-                    var $this = $(this),
-                        timeoutId = $this.data('timeoutId');
-                    if (timeoutId) {
-                        clearTimeout(timeoutId);
-                    }
-                    $this.data('timeoutId', setTimeout(function() {
-                        rscrollDownOrUp(1);
-                        $this.removeData('timeoutId');
-                        $this = null
-                    }, 100));
-                    return false;
-                }else if((e.wheelDelta>0 || e.detail<0)){
-                    var $this = $(this),
-                        timeoutId = $this.data('timeoutId');
-                    if (timeoutId) {
-                        clearTimeout(timeoutId);
-                    }
-                    $this.data('timeoutId', setTimeout(function() {
-                        rscrollDownOrUp(-1);
-                        $this.removeData('timeoutId');
-                        $this = null
-                    }, 100));
-                    return false;
-                }
-            }
-        };
-
-        var rscrollDownOrUp = function (flag) {
-            var maxNumber = $("#title").find('input[name="title"]').length;
-            var nowNumber = $("#title").find('input[checked][name="title"]').attr("data-number");
-            if(flag==1){
-                if(nowNumber<maxNumber){
-                    nowNumber++;
-                    console.log(1);
-                    $("#title").find('input[checked][name="title"]').removeAttr("checked");
-                    $("#title").find('input[data-number='+nowNumber+']').attr("checked","checked");
-                }
-            }else{
-                if(nowNumber>1){
-                    nowNumber--;
-                    console.log(-1);
-                    $("#title").find('input[checked][name="title"]').removeAttr("checked");
-                    $("#title").find('input[data-number='+nowNumber+']').prop("checked","checked");
-                }
-            }
-        };
-
-        if(navigator.userAgent.indexOf("Firefox")>0){
-            if(document.addEventListener){
-                document.addEventListener('DOMMouseScroll',scrollFunc,false);
-            }
-        }else{
-            document.onmousewheel = scrollFunc;
-        }
-    },
-    render: function () {
-        return(
-            <div>
-
-            </div>
-        )
-    }
-});
-
 
 //背景
 var BackGround = React.createClass({
@@ -319,29 +238,106 @@ var BackGround = React.createClass({
 
 
 var Title = React.createClass({
-    componentDidMount: function () {
-        $("#inputHome").attr("checked","checked");
+    getInitialState: function () {
+        return {
+            value:0
+        };
     },
+    componentDidMount: function () {
+        this.setState({
+            value:1
+        });
+        if(navigator.userAgent.indexOf("Firefox")>0){
+            if(document.addEventListener){
+                document.addEventListener('DOMMouseScroll',this.scrollFunc,false);
+            }
+        }else{
+            document.onmousewheel = this.scrollFunc;
+        }
+    },
+
+    scrollFunc: function (e) {
+        var isFinish = true;
+        if(isFinish){
+            e = e || window.event;
+            if((e.wheelDelta<0|| e.detail>0)){
+                var $this = $(this),
+                    timeoutId = $this.data('timeoutId');
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+                $this.data('timeoutId', setTimeout(function() {
+                    this.setCheckedState(1);
+                    $this.removeData('timeoutId');
+                    $this = null
+                }.bind(this), 100));
+                return false;
+            }else if((e.wheelDelta>0 || e.detail<0)){
+                var $this = $(this),
+                    timeoutId = $this.data('timeoutId');
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+                $this.data('timeoutId', setTimeout(function() {
+                    this.setCheckedState(-1);
+                    $this.removeData('timeoutId');
+                    $this = null
+                }.bind(this), 100));
+                return false;
+            }
+        }
+    },
+
+    setCheckedState: function (flag) {
+        var maxNumber = 3;
+        var nowNumber = this.state.value;
+        if(flag==1){
+            if(nowNumber<maxNumber){
+                nowNumber++;
+                this.setState({
+                    value:nowNumber
+                });
+            }
+        }else{
+            if(nowNumber>1){
+                this.setState({
+                    value:(nowNumber-1)
+                });
+            }
+        }
+    },
+
     onclick1: function () {
-        $("#title").find('input[checked][name="title"]').removeAttr("checked");
-        $("#title").find('input[data-number="1"]').prop("checked","checked");
+        this.setState({
+            value:1
+        });
     },
     onclick2: function () {
-        $("#title").find('input[checked][name="title"]').removeAttr("checked");
-        $("#title").find('input[data-number="2"]').prop("checked","checked");
+        this.setState({
+            value:2
+        });
     },
     onclick3: function () {
-        $("#title").find('input[checked][name="title"]').removeAttr("checked");
-        $("#title").find('input[data-number="3"]').prop("checked","checked");
+        this.setState({
+            value:3
+        });
+    },
+    getCheckedState: function (number) {
+        if(number==this.state.value){
+            return true;
+        }
+        else{
+            return false;
+        }
     },
     render: function () {
         return(
             <div className="full" id="title">
-                <input data-number="3" id="inputAbout" type="radio" name="title" />
+                <input data-number="3" id="inputAbout" type="checkbox" name="title" defaultChecked={this.getCheckedState(3)}/>
                 <label className="titleLabel" onClick={this.onclick3}><span>ABOUT</span></label>
-                <input data-number="2" id="inputMessage" type="radio" name="title"/>
+                <input data-number="2" id="inputMessage" type="checkbox" name="title" defaultChecked={this.getCheckedState(2)}/>
                 <label className="titleLabel" onClick={this.onclick2}><span>MESSAGE</span></label>
-                <input data-number="1" id="inputHome" type="radio" name="title"/>
+                <input data-number="1" id="inputHome" type="checkbox" name="title" defaultChecked={this.getCheckedState(1)}/>
                 <label className="titleLabel" onClick={this.onclick1}><span>HOME</span></label>
                 <Tabs/>
             </div>
