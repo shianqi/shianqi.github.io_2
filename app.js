@@ -350,15 +350,50 @@ var Tabs = React.createClass({
         return(
             <div className="pageMain" id="pageMain">
                 <div className="page">
-                    页面一
-                    <h1>sdfafasdfasdfasdfasdfasdfs</h1>
+                    <PageOne></PageOne>
                 </div>
                 <div className="page">
                     <MessageBox/>
                 </div>
                 <div className="page">
-                    CONTACT ME
+                    <PageThree></PageThree>
                 </div>
+            </div>
+        )
+    }
+});
+
+var PageOne = React.createClass({
+    componentDidMount:function () {
+        var scene = document.getElementById('scene');
+        var parallax = new Parallax(scene);
+    },
+    render: function(){
+        return(
+            <div className="homeBox">
+                <ul id="scene" className="scene">
+                    <li className="layer" data-depth="0.20"><p className="homeTitle">Archie Shi</p></li>
+                    <li className="layer" data-depth="0.30">
+                        <p className="homeTitleChinese">史安琪 / 1995.08 · 全栈</p>
+                    </li>
+                    <li className="layer layer1" data-depth="0.35">
+                        <p className="homeBody">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " The sun rises higher and higher,
+                            <br/>
+                            it is on the roof of the light is dark. "
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+});
+
+var PageThree = React.createClass({
+    render: function(){
+        return(
+            <div>
+
             </div>
         )
     }

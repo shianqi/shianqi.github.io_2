@@ -333,5 +333,52 @@ html,body{
     overflow: hidden;
 }
 
+.homeBox{
+    width: 80%;
+    height:60%;
+    position: relative;
+    top: 15%;
+    left: 10%;
+    margin-left: -20px;
+    padding: 20px;
+    display: block;
+}
+
+.scene{
+    width: 100%;
+    height: 100%;
+}
+
+.homeTitle{
+    font-family: "华文行楷","Microsoft YaHei",Arial;
+    font-size: 94px;
+    display: block;
+    margin: 0;
+}
+
+.homeTitleChinese{
+    font-family: "华文行楷","Microsoft YaHei",Arial;
+    font-size: 44px;
+    display: block;
+    margin: 0;
+    position: relative;
+    top: 100px;
+    left: 50px;
+}
+
+.homeBody{
+    font-family: "PT Sans","Microsoft YaHei",Arial;
+    font-size: 28px;
+    display: block;
+    margin: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+}
+
+.layer1{
+    bottom: 0;
+    right: 0;
+}
 
 
