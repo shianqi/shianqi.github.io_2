@@ -52,7 +52,6 @@ var Loading = React.createClass({
             <div className="loading">
                 <h3>{this.state.loadingString}</h3>
             </div>
-
         )
     },
     componentWillUnmount: function () {
@@ -339,7 +338,7 @@ var Title = React.createClass({
                 <label className="titleLabel" onClick={this.onclick2}><span>MESSAGE</span></label>
                 <input data-number="1" id="inputHome" type="checkbox" name="title" defaultChecked={this.getCheckedState(1)}/>
                 <label className="titleLabel" onClick={this.onclick1}><span>HOME</span></label>
-                <Tabs/>
+                <Tabs promise={this.state.value}/>
             </div>
         )
     }
@@ -350,13 +349,13 @@ var Tabs = React.createClass({
         return(
             <div className="pageMain" id="pageMain">
                 <div className="page">
-                    <PageOne></PageOne>
+                    <PageOne promise={this.props.promise}/>
                 </div>
                 <div className="page">
                     <MessageBox/>
                 </div>
                 <div className="page">
-                    <PageThree></PageThree>
+                    <PageThree/>
                 </div>
             </div>
         )
@@ -368,16 +367,49 @@ var PageOne = React.createClass({
         var scene = document.getElementById('scene');
         var parallax = new Parallax(scene);
     },
+    homeTitleStyle: function () {
+        if(this.props.promise==1){
+            return{
+                left:'0'
+            }
+        }else{
+            return{
+                left:'-150%'
+            }
+        }
+    },
+    homeTitleChineseStyle: function () {
+        if(this.props.promise==1){
+            return{
+                left:'20px'
+            }
+        }else{
+            return{
+                left:'-150%'
+            }
+        }
+    },
+    homeBodyStyle: function () {
+        if(this.props.promise==1){
+            return{
+                right:'0'
+            }
+        }else{
+            return{
+                right:'-150%'
+            }
+        }
+    },
     render: function(){
         return(
             <div className="homeBox">
                 <ul id="scene" className="scene">
-                    <li className="layer" data-depth="0.20"><p className="homeTitle">Archie Shi</p></li>
+                    <li className="layer" data-depth="0.20"><p className="homeTitle" style={this.homeTitleStyle()}>Archie Shi</p></li>
                     <li className="layer" data-depth="0.30">
-                        <p className="homeTitleChinese">史安琪 / 1995.08 · 全栈</p>
+                        <p className="homeTitleChinese" style={this.homeTitleChineseStyle()}>史安琪 / 1995.08 · 全栈ing</p>
                     </li>
                     <li className="layer layer1" data-depth="0.35">
-                        <p className="homeBody">
+                        <p className="homeBody" style={this.homeBodyStyle()}>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " The sun rises higher and higher,
                             <br/>
                             it is on the roof of the light is dark. "

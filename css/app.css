@@ -310,6 +310,7 @@ html,body{
     outline: none;
     cursor: pointer;
     font-family: "PT Sans", Arial, 'Microsoft YaHei';
+    font-weight: 800;
     overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
@@ -354,6 +355,8 @@ html,body{
     font-size: 94px;
     display: block;
     margin: 0;
+    transition: all 1s;
+    position: absolute;
 }
 
 .homeTitleChinese{
@@ -361,9 +364,15 @@ html,body{
     font-size: 44px;
     display: block;
     margin: 0;
-    position: relative;
-    top: 100px;
-    left: 50px;
+    left: 20px;
+    top: 90px;
+    transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    position: absolute;
+}
+
+.layer{
+    width: 100%;
+    height: 100%;
 }
 
 .homeBody{
@@ -374,6 +383,7 @@ html,body{
     bottom: 0;
     right: 0;
     position: absolute;
+    transition: all 1s;
 }
 
 .layer1{
