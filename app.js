@@ -369,7 +369,23 @@ var MessageBox = React.createClass({
         return (
             <div className="messageBox">
                 <div className="messageBoxLeft">
-
+                    <div className="messageBoxMain">
+                        <button className="message">SUBMIT</button>
+                        <button className="message">NICE</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">不错，很好看</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                        <button className="message">SUBMIT</button>
+                    </div>
                 </div>
                 <div className="messageBoxRight">
                     <div className="messageBoxRightTitle">
