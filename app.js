@@ -432,26 +432,131 @@ var PageThree = React.createClass({
 });
 
 var MessageBox = React.createClass({
+    getInitialState: function() {
+        return {
+            author: '',
+            text: '',
+            color: 1,
+            data: [
+                {
+                    text:'hello',
+                    color: 2
+                },{
+                    text:'nice',
+                    color: 3
+                }
+            ]
+        };
+    },
+    componentDidMount: function(){
+        this.getNewMessage();
+    },
+    getNewMessage: function(){
+        $.ajax({
+            url: 'http://localhost:3000/getMessage',
+            type: 'POST',
+            data: this.state,
+            success: function(data) {
+                this.setState({
+                    data:data
+                });
+            }.bind(this),
+            dataType: 'json'
+        });
+    },
+    handleAuthorChange: function(e) {
+        this.setState({
+            author: e.target.value
+        });
+    },
+    handleTextChange: function(e) {
+        this.setState({
+            text: e.target.value
+        });
+    },
+    handleButtonClick: function () {
+        if (!this.state.text || !this.state.author) {
+            return;
+        }
+
+        $.ajax({
+            url: 'http://localhost:3000/addMessage',
+            type: 'POST',
+            data: this.state,
+            error: function(){
+
+            },
+            success: function() {
+                this.getNewMessage();
+                this.setState({
+                    text:'',
+                    author: ''
+                });
+            }.bind(this),
+            dataType: 'json'
+        });
+    },
+
+    handleColorChange1: function() {
+        this.setState({
+            color: 1
+        });
+    },
+    handleColorChange2: function() {
+        this.setState({
+            color: 2
+        });
+    },
+    handleColorChange3: function() {
+        this.setState({
+            color: 3
+        });
+    },
+    handleColorChange4: function() {
+        this.setState({
+            color: 4
+        });
+    },
+    handleColorChange5: function() {
+        this.setState({
+            color: 5
+        });
+    },
+    handleColorChange6: function() {
+        this.setState({
+            color: 6
+        });
+    },
     render: function(){
+        var commentNodes = this.state.data.map(function(comment) {
+            var colorString;
+            if(comment.color==1){
+                colorString="blue";
+            }
+            if(comment.color==2){
+                colorString="orange";
+            }
+            if(comment.color==3){
+                colorString="pink";
+            }
+            if(comment.color==4){
+                colorString="red";
+            }
+            if(comment.color==5){
+                colorString="yellow";
+            }
+            if(comment.color==6){
+                colorString="black";
+            }
+            return (
+                <button className={"message "+colorString}>{comment.text}</button>
+            );
+        });
         return (
             <div className="messageBox">
                 <div className="messageBoxLeft">
                     <div className="messageBoxMain">
-                        <button className="message">SUBMIT</button>
-                        <button className="message">NICE</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">不错，很好看</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
-                        <button className="message">SUBMIT</button>
+                        {commentNodes}
                     </div>
                 </div>
                 <div className="messageBoxRight">
@@ -460,33 +565,44 @@ var MessageBox = React.createClass({
                     </div>
                     <div className="messageBoxRightInput">
                         <div className="messageBoxRightInputInput">
-                            <input type="text" placeholder="Your Nickname"/>
+                            <input
+                                type="text"
+                                placeholder="Your Nickname"
+                                value={this.state.author}
+                                onChange={this.handleAuthorChange}
+                            />
                         </div>
                         <div className="messageBoxRightInputTextarea">
-                            <textarea placeholder="In a message here..."/>
+                            <textarea
+                                placeholder="In a message here..."
+                                value={this.state.text}
+                                onChange={this.handleTextChange}
+                            />
                         </div>
                     </div>
                     <div className="messageBoxRightSubmit">
                         <div className="messageBoxRightColorPicker">
-                            <input type="radio" id="check-black" className="black" data-set="radio-color-set" name="colorPicker" defaultChecked/>
-                            <label id="label1" className="messageBoxRightColorPickerLabel" htmlFor="check-black"><span></span></label>
+                            <input onClick={this.handleColorChange1} type="radio" id="check-blue" data-set="radio-color-set" name="colorPicker" defaultChecked/>
+                            <label className="messageBoxRightColorPickerLabel blue" htmlFor="check-blue"><span></span></label>
 
-                            <input type="radio" id="check-blue" className="blue" data-set="radio-color-set" name="colorPicker"/>
-                            <label id="label2" className="messageBoxRightColorPickerLabel" htmlFor="check-blue" ><span></span></label>
+                            <input onClick={this.handleColorChange2} type="radio" id="check-orange" data-set="radio-color-set" name="colorPicker"/>
+                            <label className="messageBoxRightColorPickerLabel orange" htmlFor="check-orange" ><span></span></label>
 
-                            <input type="radio" id="check-orange" className="orange" data-set="radio-color-set" name="colorPicker"/>
-                            <label id="label3" className="messageBoxRightColorPickerLabel" htmlFor="check-orange"><span></span></label>
+                            <input onClick={this.handleColorChange3} type="radio" id="check-pink" data-set="radio-color-set" name="colorPicker"/>
+                            <label className="messageBoxRightColorPickerLabel pink" htmlFor="check-pink"><span></span></label>
 
-                            <input type="radio" id="check-pink" className="pink" data-set="radio-color-set" name="colorPicker"/>
-                            <label id="label4" className="messageBoxRightColorPickerLabel" htmlFor="check-pink"><span></span></label>
+                            <input onClick={this.handleColorChange4} type="radio" id="check-red" data-set="radio-color-set" name="colorPicker"/>
+                            <label className="messageBoxRightColorPickerLabel red" htmlFor="check-red"><span></span></label>
 
-                            <input type="radio" id="check-red" className="red" data-set="radio-color-set" name="colorPicker"/>
-                            <label id="label5" className="messageBoxRightColorPickerLabel" htmlFor="check-red"><span></span></label>
+                            <input onClick={this.handleColorChange5} type="radio" id="check-yellow" data-set="radio-color-set" name="colorPicker"/>
+                            <label className="messageBoxRightColorPickerLabel yellow" htmlFor="check-yellow"><span></span></label>
 
-                            <input type="radio" id="check-yellow" className="yellow" data-set="radio-color-set" name="colorPicker"/>
-                            <label id="label6" className="messageBoxRightColorPickerLabel" htmlFor="check-yellow"><span></span></label>
+                            <input onClick={this.handleColorChange6} type="radio" id="check-black" data-set="radio-color-set" name="colorPicker"/>
+                            <label className="messageBoxRightColorPickerLabel black" htmlFor="check-black"><span></span></label>
 
-                            <button className="messageBoxRightSubmitButton">SUBMIT</button>
+                            <button
+                                onClick={this.handleButtonClick}
+                                className="messageBoxRightSubmitButton">SUBMIT</button>
                         </div>
                     </div>
                 </div>
