@@ -213,7 +213,7 @@ var BackGround = React.createClass({
             this.loadingLine();
             this.update();
             /**
-             unction webkitRequestAnimationFrame(callback)
+             function webkitRequestAnimationFrame(callback)
              {
                  // stuff...
                  callback();
@@ -323,7 +323,7 @@ var Title = React.createClass({
     },
     getCheckedState: function (number) {
         if(number==this.state.value){
-            return true;
+            return "checked";
         }
         else{
             return false;
@@ -332,11 +332,11 @@ var Title = React.createClass({
     render: function () {
         return(
             <div className="full" id="title">
-                <input data-number="3" id="inputAbout" type="checkbox" name="title" defaultChecked={this.getCheckedState(3)}/>
+                <input data-number="3" id="inputAbout" type="checkbox" name="title" checked={this.getCheckedState(3)}/>
                 <label className="titleLabel" onClick={this.onclick3}><span>ABOUT</span></label>
-                <input data-number="2" id="inputMessage" type="checkbox" name="title" defaultChecked={this.getCheckedState(2)}/>
+                <input data-number="2" id="inputMessage" type="checkbox" name="title" checked={this.getCheckedState(2)}/>
                 <label className="titleLabel" onClick={this.onclick2}><span>MESSAGE</span></label>
-                <input data-number="1" id="inputHome" type="checkbox" name="title" defaultChecked={this.getCheckedState(1)}/>
+                <input data-number="1" id="inputHome" type="checkbox" name="title" checked={this.getCheckedState(1)}/>
                 <label className="titleLabel" onClick={this.onclick1}><span>HOME</span></label>
                 <Tabs promise={this.state.value}/>
             </div>
@@ -431,21 +431,31 @@ var PageThree = React.createClass({
     }
 });
 
+var Comment = React.createClass({
+    render: function(){
+        var text;
+        if(this.props.text.length>20){
+            text = this.props.text.substring(0,18);
+            text += "...";
+        }else{
+            text = this.props.text;
+        }
+
+        return(
+            <div>
+                <button className={"message "+this.props.color.toString()}>{text}</button>
+            </div>
+        )
+    }
+});
+
 var MessageBox = React.createClass({
     getInitialState: function() {
         return {
             author: '',
             text: '',
             color: 1,
-            data: [
-                {
-                    text:'hello',
-                    color: 2
-                },{
-                    text:'nice',
-                    color: 3
-                }
-            ]
+            data: []
         };
     },
     componentDidMount: function(){
@@ -457,6 +467,9 @@ var MessageBox = React.createClass({
             type: 'POST',
             data: this.state,
             success: function(data) {
+                for(var i=0;i<data.length;i++){
+                    data[i].id=data[i]._id;
+                }
                 this.setState({
                     data:data
                 });
@@ -549,7 +562,7 @@ var MessageBox = React.createClass({
                 colorString="black";
             }
             return (
-                <button className={"message "+colorString}>{comment.text}</button>
+                <Comment key={comment.id} color={colorString} text={comment.text}/>
             );
         });
         return (
@@ -569,6 +582,7 @@ var MessageBox = React.createClass({
                                 type="text"
                                 placeholder="Your Nickname"
                                 value={this.state.author}
+                                maxLength="20"
                                 onChange={this.handleAuthorChange}
                             />
                         </div>
@@ -576,6 +590,7 @@ var MessageBox = React.createClass({
                             <textarea
                                 placeholder="In a message here..."
                                 value={this.state.text}
+                                maxLength="100"
                                 onChange={this.handleTextChange}
                             />
                         </div>

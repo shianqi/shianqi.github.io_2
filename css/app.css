@@ -11,6 +11,16 @@ html,body{
     overflow: hidden;
 }
 
+*::selection{
+    background-color:#70C1B7;
+    color:#ffffff;
+}
+
+*::-moz-selection{
+    background-color:#70C1B7;
+    color:#ffffff;
+}
+
 .full{
     height: 100%;
 }
