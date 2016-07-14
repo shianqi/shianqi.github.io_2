@@ -2,6 +2,7 @@
  * Created by killer on 2016/7/3.
  * 程序主入口
  */
+var host = "http://115.28.72.26:3000/";
 
 var App = React.createClass({
     getInitialState: function () {
@@ -356,6 +357,7 @@ var Tabs = React.createClass({
                 </div>
                 <div className="page">
                     <PageThree/>
+                    <Footing/>
                 </div>
             </div>
         )
@@ -424,8 +426,69 @@ var PageOne = React.createClass({
 var PageThree = React.createClass({
     render: function(){
         return(
-            <div>
+            <div className="homeBox">
+                <div className="aboutMe">
+                    <img className="aboutMePhoto" src="img/Archie-Shi_sm.jpg" alt="" width="160px"/>
+                    <p><span className="aboutMeName">史安琪（Archie&nbsp;Shi）</span>，90后编程爱好者。<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年考取
+                        <a href="http://baike.baidu.com/view/25317.htm">内蒙古大学</a>，
+                        由于对编程的热爱，选择了软件工程专业。开始的时候是零基础，是<a href="http://www.hupeng.me/">胡鹏</a>
+                        （我的舍友）带着我刷学校OJ，并在大一上半年期间取得了较高的排名。之后加入了
+                        <a href="http://www.imudges.com/" target="_blank">IMUDGES</a>（内蒙古大学精英学生开发者联盟），
+                        从此励志成为一名合格的
+                        <a href="http://baike.baidu.com/view/12046150.htm" target="_blank">全栈工程师</a>
+                        （Full Stack developer） ，并不断为之努力。
+                        现如今，熟练掌握C++，Java，HTML，CSS，JavaScript，SQL，php，Python，NodeJs等多种语言，能够熟练编写复杂的
+                        原生安卓应用，以及WebApp（ionic，React Native，PhoneGap）。熟练使用AngularJs，React，jQuery，ThinkPHP，
+                        SSH，Express，MFC等前后端框架。以及Oracle，MySQL，Access，MongoDB等多种数据库。有很好的美术基础，能够非常好的使用
+                        photoshop。
+                        并且不断的学习新知识，紧追新技术，相信在不久的将来我会成为一名合格的全栈工程师。<br/>
+                    </p>
+                </div>
+            </div>
+        )
+    }
+});
 
+var Footing =React.createClass({
+    render: function () {
+        return (
+            <div className="footing">
+                <div className="contactMe">
+                    <h3 className="aboutWebsite">CONTACT ME&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                    <p className="aboutWebsite">
+                        E-mail：<a href="mailto:shianqi@imudges.com">shianqi@imudges.com</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                        Mobile Phone: <a href="#">15661131738</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                        Github: <a href="https://github.com/shianqi" target="_blank">github.com/shianqi</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                        Tencent QQ: <a href="tencent://message/?uin=1210219084&amp;Site=有事Q我&amp;Menu=yes">1210219084</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                    </p>
+                </div>
+                <div className="contactWebsite">
+                    <h3 className="aboutWebsite">&nbsp;&nbsp;&nbsp;&nbsp;ABOUT WEBSITE</h3>
+                    <p className="aboutWebsite">
+                        &nbsp;&nbsp;&nbsp;&nbsp;Power By:&nbsp;&nbsp; <a href="https://github.com/facebook/react" target="_blank">React</a>
+                        & <a href="https://nodejs.org/en/" target="_blank">NodeJs</a>
+                        & <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Server: <a href="https://github.com/shianqi/shianqi.github.io_2_server" target="_blank">shianqi.github.io_2_server</a><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Website: <a href="https://github.com/shianqi/shianqi.github.io_2" target="_blank">shianqi.github.io_2</a> <br/>
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;历史访问人次： 2104
+                        <br/>
+                    </p>
+                </div>
+                <Copyright/>
+            </div>
+        )
+    }
+});
+
+var Copyright  = React.createClass({
+    render: function () {
+        return (
+            <div className="Copyright">
+                <br/>
+                Copyright ©2016 Archie Shi <br/>
+                website-version:&nbsp;&nbsp;v2.0.0<br/>
             </div>
         )
     }
@@ -463,7 +526,7 @@ var MessageBox = React.createClass({
     },
     getNewMessage: function(){
         $.ajax({
-            url: 'http://localhost:3000/getMessage',
+            url: host+'getMessage',
             type: 'POST',
             data: this.state,
             success: function(data) {
@@ -493,7 +556,7 @@ var MessageBox = React.createClass({
         }
 
         $.ajax({
-            url: 'http://localhost:3000/addMessage',
+            url: host+'addMessage',
             type: 'POST',
             data: this.state,
             error: function(){

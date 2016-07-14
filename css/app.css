@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 .loading{
     margin-top: 300px;
     text-align: center;
@@ -85,7 +87,7 @@ html,body{
     width: 100%;
     height: 100%;
     color: #ffffff;
-    font-family: "PT Sans",Arial;
+    font-family: "PT Sans",Arial,"Microsoft YaHei";
 }
 
 #inputHome:checked ~ .pageMain{
@@ -345,13 +347,14 @@ html,body{
 
 .homeBox{
     width: 80%;
-    height:60%;
+    height:70%;
     position: relative;
     top: 15%;
     left: 10%;
     margin-left: -20px;
     padding: 20px;
     display: block;
+    z-index: 0;
 }
 
 .scene{
@@ -400,4 +403,145 @@ html,body{
     right: 0;
 }
 
+.aboutMePhoto{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    border: 5px solid white;
+    float: left;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
 
+.aboutMe p{
+    margin: 0;
+    font-size: 22px;
+    transition: all 0.6s;
+}
+
+.aboutMe{
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 350px;
+}
+
+.aboutWebsite,
+.aboutMe{
+    margin: 0;
+}
+
+.aboutWebsite a,
+.aboutMe a{
+    color: #70C1B7;
+}
+
+
+.aboutWebsite a:hover,
+.aboutMe a:hover{
+    color: #ffffff;
+}
+
+.aboutWebsite{
+    z-index: 0;
+}
+
+.contactMe{
+    position: relative;
+    width: 50%;
+    float: left;
+    text-align: right;
+    border-right: 3px solid #ffffff;
+    margin-right: -3px;
+}
+
+.contactWebsite{
+    position: relative;
+    width: 50%;
+    float: left;
+    z-index: 100;
+}
+
+.Copyright{
+    float: left;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    width: 100%;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.footing{
+    height: 100%;
+}
+
+.aboutMeName{
+    font-size: 28px;
+}
+@media screen and (max-width: 1000px) {
+    .aboutMe p{
+        font-size: 19px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .aboutMe p{
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .aboutMe p{
+        font-size: 15px;
+    }
+
+    .footing{
+        font-size: 12px;
+    }
+    .aboutMeName{
+        font-size: 22px;
+    }
+    .aboutMePhoto{
+        width: 140px;
+    }
+    .homeTitle{
+        font-size: 80px;
+    }
+
+    .homeTitleChinese{
+        font-size: 32px;
+    }
+    .homeBody{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .aboutMeName{
+        font-size: 18px;
+    }
+    .aboutMePhoto{
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footing{
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .Copyright{
+        display: none;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    .footing{
+        display: none;
+    }
+}
