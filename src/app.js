@@ -7,7 +7,7 @@ var host = "http://115.28.72.26:3000/";
 var App = React.createClass({
     getInitialState: function () {
         return {
-            loadingState:true
+            loadingState:false
         };
     },
     render: function () {
@@ -22,10 +22,7 @@ var App = React.createClass({
         }
     },
     componentDidMount: function () {
-        this.props.promise.then(
-            value => this.setState({loadingState: true}),
-            error => this.setState({loadingState: true})
-        );
+        this.setState({loadingState: true});
     }
 });
 
@@ -690,6 +687,6 @@ var MessageBox = React.createClass({
 });
 
 ReactDOM.render(
-    <App promise={$.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars22')}/>,
+    <App/>,
     document.getElementById('app')
 );
