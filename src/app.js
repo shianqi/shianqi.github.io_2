@@ -84,7 +84,7 @@ var BackGround = React.createClass({
             canvas.width = window.innerWidth ;
             canvas.height = window.innerHeight;
         };
-        //document.documentElement.style.overflowY = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         var rand = function( min, max ){
