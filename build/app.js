@@ -7,7 +7,7 @@ var host = "http://115.28.72.26:3000/";
 var App = React.createClass({displayName: "App",
     getInitialState: function () {
         return {
-            loadingState:true
+            loadingState:false
         };
     },
     render: function () {
@@ -21,11 +21,15 @@ var App = React.createClass({displayName: "App",
             );
         }
     },
+    addVisit: function (){
+        $.ajax({
+            url: host+'visit',
+            type: 'GET'
+        });
+    },
     componentDidMount: function () {
-        this.props.promise.then(
-            value => this.setState({loadingState: true}),
-            error => this.setState({loadingState: true})
-        );
+        this.setState({loadingState: true});
+        this.addVisit();
     }
 });
 
@@ -87,7 +91,7 @@ var BackGround = React.createClass({displayName: "BackGround",
             canvas.width = window.innerWidth ;
             canvas.height = window.innerHeight;
         };
-        //document.documentElement.style.overflowY = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
         window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
         var rand = function( min, max ){
@@ -451,6 +455,25 @@ var PageThree = React.createClass({displayName: "PageThree",
 });
 
 var Footing =React.createClass({displayName: "Footing",
+    getInitialState: function() {
+        return {
+            visitNumber: '0',
+        };
+    },
+
+    componentDidMount: function () {
+        $.ajax({
+            url:host+'visitNumber',
+            type: 'GET',
+            success: function(data) {
+                alert(data);
+                this.setState({
+                    visitNumber: data
+                });
+            }.bind(this),
+        });
+    },
+
     render: function () {
         return (
             React.createElement("div", {className: "footing"}, 
@@ -472,7 +495,7 @@ var Footing =React.createClass({displayName: "Footing",
                         "    Server: ", React.createElement("a", {href: "https://github.com/shianqi/shianqi.github.io_2_server", target: "_blank"}, "shianqi.github.io_2_server"), React.createElement("br", null), 
                         "    Website: ", React.createElement("a", {href: "https://github.com/shianqi/shianqi.github.io_2", target: "_blank"}, "shianqi.github.io_2"), " ", React.createElement("br", null), 
 
-                        "    历史访问人次： 2104", 
+                        "    历史访问人次： ", this.state.visitNumber, 
                         React.createElement("br", null)
                     )
                 ), 
@@ -690,6 +713,6 @@ var MessageBox = React.createClass({displayName: "MessageBox",
 });
 
 ReactDOM.render(
-    React.createElement(App, {promise: $.getJSON('https://api.github.com/search/repositories?q=javascript&sort=stars22')}),
+    React.createElement(App, null),
     document.getElementById('app')
 );

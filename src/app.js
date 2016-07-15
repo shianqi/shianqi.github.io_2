@@ -21,8 +21,15 @@ var App = React.createClass({
             );
         }
     },
+    addVisit: function (){
+        $.ajax({
+            url: host+'visit',
+            type: 'GET'
+        });
+    },
     componentDidMount: function () {
         this.setState({loadingState: true});
+        this.addVisit();
     }
 });
 
@@ -448,6 +455,25 @@ var PageThree = React.createClass({
 });
 
 var Footing =React.createClass({
+    getInitialState: function() {
+        return {
+            visitNumber: '0',
+        };
+    },
+
+    componentDidMount: function () {
+        $.ajax({
+            url:host+'visitNumber',
+            type: 'GET',
+            success: function(data) {
+                alert(data);
+                this.setState({
+                    visitNumber: data
+                });
+            }.bind(this),
+        });
+    },
+
     render: function () {
         return (
             <div className="footing">
@@ -469,7 +495,7 @@ var Footing =React.createClass({
                         &nbsp;&nbsp;&nbsp;&nbsp;Server: <a href="https://github.com/shianqi/shianqi.github.io_2_server" target="_blank">shianqi.github.io_2_server</a><br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;Website: <a href="https://github.com/shianqi/shianqi.github.io_2" target="_blank">shianqi.github.io_2</a> <br/>
 
-                        &nbsp;&nbsp;&nbsp;&nbsp;历史访问人次： 2104
+                        &nbsp;&nbsp;&nbsp;&nbsp;历史访问人次： {this.state.visitNumber}
                         <br/>
                     </p>
                 </div>
