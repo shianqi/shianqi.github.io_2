@@ -58,7 +58,7 @@ var Loading = React.createClass({
     componentWillUnmount: function () {
         clearInterval(this.timer);
     }
-});
+}); 
 
 var Main = React.createClass({
     render: function () {
