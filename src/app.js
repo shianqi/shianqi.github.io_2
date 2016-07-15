@@ -466,7 +466,6 @@ var Footing =React.createClass({
             url:host+'visitNumber',
             type: 'GET',
             success: function(data) {
-                alert(data);
                 this.setState({
                     visitNumber: data
                 });
