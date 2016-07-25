@@ -430,7 +430,7 @@ var PageOne = React.createClass({
 var PageThree = React.createClass({
     render: function(){
         return(
-            <div className="homeBox">
+            <div className="homeBox"> 
                 <div className="aboutMe">
                     <img className="aboutMePhoto" src="img/Archie-Shi_sm.jpg" alt="" width="160px"/>
                     <p><span className="aboutMeName">史安琪（Archie&nbsp;Shi）</span>，90后编程爱好者。<br/>
