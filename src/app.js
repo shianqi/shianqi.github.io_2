@@ -435,8 +435,8 @@ var PageThree = React.createClass({
                     <img className="aboutMePhoto" src="img/Archie-Shi_sm.jpg" alt="" width="160px"/>
                     <p><span className="aboutMeName">史安琪（Archie&nbsp;Shi）</span>，90后编程爱好者。<br/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2014年考取
-                        <a href="http://baike.baidu.com/view/25317.htm">内蒙古大学</a>，
-                        由于对编程的热爱，选择了软件工程专业。开始的时候是零基础，是<a href="http://www.hupeng.me/">胡鹏</a>
+                        <a href="http://baike.baidu.com/view/25317.htm" target="_blank">内蒙古大学</a>，
+                        由于对编程的热爱，选择了软件工程专业。开始的时候是零基础，是<a href="http://www.hupeng.me/" target="_blank">胡鹏</a>
                         （我的舍友）带着我刷学校OJ，并在大一上半年期间取得了较高的排名。之后加入了
                         <a href="http://www.imudges.com/" target="_blank">IMUDGES</a>（内蒙古大学精英学生开发者联盟），
                         从此励志成为一名合格的
