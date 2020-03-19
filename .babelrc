@@ -1,7 +1,15 @@
 {
-  "presets": [
-    "es2015",
-    "stage-0",
-    "react"
+  "presets": ["next/babel"],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    [
+      "babel-plugin-styled-components",
+      {
+        "minify": true,
+        "ssr": true,
+        "displayName": true,
+        "preprocess": false
+      }
+    ]
   ]
 }

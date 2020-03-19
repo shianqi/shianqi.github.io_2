@@ -1,0 +1,554 @@
+@charset "utf-8";
+
+#outLoading {
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/loading.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.loading {
+  margin-top: 300px;
+  text-align: center;
+}
+
+html,
+body {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+*::selection {
+  background-color: #70c1b7;
+  color: #ffffff;
+}
+
+*::-moz-selection {
+  background-color: #70c1b7;
+  color: #ffffff;
+}
+
+.full {
+  height: 100%;
+}
+
+#canvas {
+  position: fixed;
+}
+
+.titleLabel {
+  z-index: 100;
+  float: right;
+  position: relative;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 24px;
+  display: block;
+  text-decoration: none;
+  color: #70c1b7;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  margin: 15px;
+  border-bottom: 0 solid #70c1b7;
+  font-family: 'PT Sans Narrow', 'Microsoft YaHei';
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.titleLabel:hover {
+  color: #ffffff;
+  padding-bottom: 2px;
+  border-bottom: 2px solid #ffffff;
+  transition: all 0.3s;
+}
+
+#title + input {
+  display: none;
+}
+
+.full input:checked + label {
+  color: #ffffff;
+}
+
+.pageMain {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  transition: all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  font-family: 'PT Sans', Arial, 'Microsoft YaHei';
+}
+
+#inputHome:checked ~ .pageMain {
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  transform: translateY(0%);
+}
+
+#inputMessage:checked ~ .pageMain {
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  -o-transform: translateY(-100%);
+  transform: translateY(-100%);
+}
+
+#inputAbout:checked ~ .pageMain {
+  -webkit-transform: translateY(-200%);
+  -moz-transform: translateY(-200%);
+  -ms-transform: translateY(-200%);
+  -o-transform: translateY(-200%);
+  transform: translateY(-200%);
+}
+
+.messageBox {
+  width: 80%;
+  height: 70%;
+  position: relative;
+  top: 15%;
+  left: 10%;
+  margin-left: -20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.messageBoxLeft {
+  position: absolute;
+  left: 20px;
+  right: 280px;
+  top: 20px;
+  bottom: 20px;
+  float: left;
+  display: block;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.messageBoxRight {
+  position: inherit;
+  width: 250px;
+  height: 100%;
+  border-radius: 10px;
+  display: block;
+  float: right;
+}
+
+.messageBoxRight input {
+  width: 100px;
+  height: 20px;
+  float: right;
+}
+
+.messageBoxRightTitle {
+  height: 40px;
+  width: 100%;
+  background: #70c1b7;
+  position: absolute;
+  top: 0;
+}
+
+.messageBoxRightSubmit {
+  width: 100%;
+  -moz-border-radius-bottomleft: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  bottom: 0;
+}
+
+.messageBoxRightInput {
+  background: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 100px;
+}
+
+.messageBoxRightInputInput {
+  display: block;
+  position: absolute;
+  top: 0;
+  color: #ffffff;
+  font-size: 24px;
+  height: 30px;
+  /*border: 0;*/
+  border: 10px solid rgba(90, 90, 90, 0.15);
+  /*padding: 10px;*/
+}
+
+.messageBoxRightInputTextarea {
+  display: block;
+  position: absolute;
+  color: #ffffff;
+  font-size: 24px;
+  top: 50px;
+  bottom: 0;
+  margin: 0;
+  border: 10px solid rgba(90, 90, 90, 0.15);
+  outline: none;
+  resize: none;
+}
+
+.messageBoxRightInput input {
+  display: block;
+  float: left;
+  position: static;
+  top: 0;
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 24px;
+  height: 30px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  outline: none;
+  font-family: 'PT Sans', Arial, 'Microsoft YaHei';
+}
+
+.messageBoxRightInput textarea {
+  display: block;
+  position: static;
+  background: rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  font-size: 24px;
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  outline: none;
+  resize: none;
+  font-family: 'PT Sans', Arial, 'Microsoft YaHei';
+}
+
+.messageBoxRightColorPickerLabel {
+  margin-left: 10px;
+  margin-right: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: left;
+  display: block;
+  width: 19px;
+  height: 19px;
+  border: 3px solid rgba(255, 255, 255, 0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.messageBoxRightColorPicker input:checked + .messageBoxRightColorPickerLabel {
+  border: 3px solid #ffffff;
+}
+
+.messageBoxRightSubmit input {
+  display: none;
+}
+
+.blue {
+  background: #2aa9e0;
+}
+
+.orange {
+  background: #eb8046;
+}
+
+.pink {
+  background: #db4286;
+}
+
+.red {
+  background: #d94134;
+}
+
+.yellow {
+  background: #f2d54c;
+}
+
+.black {
+  background: #454545;
+}
+
+.messageBoxRightSubmitButton {
+  margin: 10px;
+  float: left;
+  display: block;
+  width: 230px;
+  height: 30px;
+  border: 0;
+  padding: 0;
+  background: #70c1b7;
+  color: #ffffff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.messageBoxRightSubmitButton:hover {
+  border: 4px solid #ffffff;
+  background: rgba(0, 0, 0, 0);
+  transition: all 0.2s;
+}
+
+.message {
+  margin: 10px;
+  float: left;
+  display: block;
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #ffffff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  font-family: 'PT Sans', Arial, 'Microsoft YaHei';
+  font-weight: 800;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  border: 4px solid rgba(0, 0, 0, 0);
+}
+
+.message:hover {
+  border: 4px solid #ffffff;
+  background: rgba(0, 0, 0, 0);
+  transition: all 0.2s;
+}
+
+.messageBoxMain {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.homeBox {
+  width: 80%;
+  height: 70%;
+  position: relative;
+  top: 15%;
+  left: 10%;
+  margin-left: -20px;
+  padding: 20px;
+  display: block;
+  z-index: 0;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+}
+
+.homeTitle {
+  font-family: cursive, '华文行楷', 'Microsoft YaHei', Arial;
+  font-size: 94px;
+  display: block;
+  margin: 0;
+  transition: all 1s;
+  position: absolute;
+}
+
+.homeTitleChinese {
+  font-family: cursive, '华文行楷', 'Microsoft YaHei', Arial;
+  font-size: 44px;
+  display: block;
+  margin: 0;
+  left: 20px;
+  top: 90px;
+  transition: all 1s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  position: absolute;
+}
+
+.layer {
+  width: 100%;
+  height: 100%;
+}
+
+.homeBody {
+  font-family: 'PT Sans', 'Microsoft YaHei', Arial;
+  font-size: 28px;
+  display: block;
+  margin: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  transition: all 1s;
+}
+
+.layer1 {
+  bottom: 0;
+  right: 0;
+}
+
+.aboutMePhoto {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  border: 5px solid white;
+  float: left;
+  margin-right: 16px;
+  margin-bottom: 16px;
+}
+
+.aboutMe p {
+  margin: 0;
+  font-size: 22px;
+  transition: all 0.6s;
+}
+
+.aboutMe {
+  position: relative;
+  width: 100%;
+  float: left;
+  height: 350px;
+}
+
+.aboutWebsite,
+.aboutMe {
+  margin: 0;
+}
+
+.aboutWebsite a,
+.aboutMe a {
+  color: #70c1b7;
+}
+
+.aboutWebsite a:hover,
+.aboutMe a:hover {
+  color: #ffffff;
+}
+
+.aboutWebsite {
+  z-index: 0;
+}
+
+.contactMe {
+  position: relative;
+  width: 50%;
+  float: left;
+  text-align: right;
+  border-right: 3px solid #ffffff;
+  margin-right: -3px;
+}
+
+.contactWebsite {
+  position: relative;
+  width: 50%;
+  float: left;
+  z-index: 100;
+}
+
+.Copyright {
+  float: left;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  width: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.footing {
+  height: 100%;
+}
+
+.aboutMeName {
+  font-size: 28px;
+}
+@media screen and (max-width: 1000px) {
+  .aboutMe p {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .aboutMe p {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .aboutMe p {
+    font-size: 15px;
+  }
+
+  .footing {
+    font-size: 12px;
+  }
+  .aboutMeName {
+    font-size: 22px;
+  }
+  .aboutMePhoto {
+    width: 140px;
+  }
+  .homeTitle {
+    font-size: 80px;
+  }
+
+  .homeTitleChinese {
+    font-size: 32px;
+  }
+  .homeBody {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .aboutMeName {
+    font-size: 18px;
+  }
+  .aboutMePhoto {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .footing {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .Copyright {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 650px) {
+  .footing {
+    display: none;
+  }
+}

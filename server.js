@@ -1,17 +1,40 @@
-/*eslint no-console:0 */
-'use strict';
-require('core-js/fn/object/assign');
-const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
-const config = require('./webpack.config');
-const open = require('open');
+const Koa = require('koa')
+const next = require('next')
+const Router = require('koa-router')
+const env = require('./config/env')
 
-new WebpackDevServer(webpack(config), config.devServer)
-.listen(config.port, 'localhost', (err) => {
-  if (err) {
-    console.log(err);
-  }
-  console.log('Listening at localhost:' + config.port);
-  console.log('Opening your system browser...');
-  open('http://localhost:' + config.port + '/webpack-dev-server/');
-});
+const { port } = env
+const dev = process.env.NODE_ENV !== 'production'
+const app = next({ dev })
+const handle = app.getRequestHandler()
+
+const redirects = [
+  // { from: '/', to: '/'}
+]
+
+app.prepare().then(() => {
+  const server = new Koa()
+  const router = new Router()
+
+  redirects.forEach(({ from, to, method = 'get' }) => {
+    router[method](from, async ctx => {
+      await app.render(ctx.req, ctx.res, to, ctx.query)
+      ctx.respond = false
+    })
+  })
+
+  router.get('*', async ctx => {
+    await handle(ctx.req, ctx.res)
+    ctx.respond = false
+  })
+
+  server.use(async (ctx, next) => {
+    ctx.res.statusCode = 200
+    await next()
+  })
+
+  server.use(router.routes())
+  server.listen(port, () => {
+    console.log(`> Ready on http://localhost:${port}`)
+  })
+})
